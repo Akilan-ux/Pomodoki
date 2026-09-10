@@ -1,0 +1,117 @@
+<!--
+Full Name: [Name]
+File Name: index.html
+
+Declaration: This is my own program. I did use AI to coach me.
+             I did not copy anyone's work.
+
+Objective: The main markup for Pomodoki, a focus timer web app. Lays out the
+           background scene, the focus card with the timer and mode tabs,
+           the floating dock for switching panels, and the side drawer that
+           the dock buttons open.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pomodoki — a focus timer</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ------------------------------------------- BACKGROUND SCENE ------------------------------------------- -->
+  <!-- Full-bleed scene: two layers so themes can crossfade -->
+  <div class="scene" id="scene" data-theme="forest">
+    <div class="scene__layer scene__layer--a"></div>
+    <div class="scene__layer scene__layer--b"></div>
+    <div class="scene__scrim"></div>
+  </div>
+
+  <div class="app" data-mode="focus">
+
+    <!-- ------------------------------------------- TOP BAR ------------------------------------------- -->
+    <header class="topbar">
+      <div class="wordmark-group">
+        <span class="wordmark">Pomodoki</span>
+        <span class="tagline">by aki</span>
+      </div>
+    </header>
+
+    <!-- ------------------------------------------- FOCUS CARD ------------------------------------------- -->
+    <!-- Holds the mode tabs, the countdown display, the transport controls and the session dots -->
+    <main class="card" id="focusCard">
+
+      <div class="modes" role="tablist" aria-label="Timer mode">
+        <button class="mode" data-mode="focus" role="tab" aria-selected="true">Focus</button>
+        <button class="mode" data-mode="short" role="tab" aria-selected="false">Short break</button>
+        <button class="mode" data-mode="long" role="tab" aria-selected="false">Long break</button>
+      </div>
+
+      <div class="time" id="timeDisplay">25:00</div>
+
+      <div class="controls">
+        <button class="ctrl ctrl--ghost" id="resetBtn" aria-label="Reset timer">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 1 3 6.7"></path>
+            <path d="M3 4v6h6"></path>
+          </svg>
+        </button>
+        <button class="ctrl ctrl--main" id="startBtn">
+          <span id="startLabel">start</span>
+        </button>
+        <button class="ctrl ctrl--ghost" id="settingsBtn" aria-label="Open settings" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3.2"></circle>
+            <path d="M19.4 13.5a7.6 7.6 0 0 0 .06-1l1.86-1.45a.6.6 0 0 0 .14-.77l-1.76-3.05a.6.6 0 0 0-.73-.26l-2.2.88a7.7 7.7 0 0 0-1.72-1l-.33-2.34a.6.6 0 0 0-.6-.51h-3.52a.6.6 0 0 0-.6.51l-.33 2.34a7.7 7.7 0 0 0-1.72 1l-2.2-.88a.6.6 0 0 0-.73.26L2.54 10.28a.6.6 0 0 0 .14.77L4.54 12.5a7.6 7.6 0 0 0 0 2l-1.86 1.45a.6.6 0 0 0-.14.77l1.76 3.05a.6.6 0 0 0 .73.26l2.2-.88a7.7 7.7 0 0 0 1.72 1l.33 2.34a.6.6 0 0 0 .6.51h3.52a.6.6 0 0 0 .6-.51l.33-2.34a7.7 7.7 0 0 0 1.72-1l2.2.88a.6.6 0 0 0 .73-.26l1.76-3.05a.6.6 0 0 0-.14-.77z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="dots" id="sessionDots" aria-label="Sessions completed this cycle"></div>
+
+    </main>
+
+    <!-- ------------------------------------------- FLOATING DOCK ------------------------------------------- -->
+    <!-- Each button opens the matching panel (see drawerBody) in the side drawer below -->
+    <nav class="dock" aria-label="Panels">
+      <button class="dock__btn" data-panel="sounds" aria-label="Soundscapes">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M17 8a5 5 0 0 1 0 8"></path></svg>
+        <span>Sounds</span>
+      </button>
+      <button class="dock__btn" data-panel="themes" aria-label="Themes">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 3.5a5.6 5.6 0 0 0 0 17 2 2 0 0 0 0-4 1.6 1.6 0 0 1 0-3.2 2 2 0 0 0 0-4 1.6 1.6 0 0 1 0-3.2"></path></svg>
+        <span>Themes</span>
+      </button>
+      <button class="dock__btn" data-panel="tasks" aria-label="Tasks">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4.5 6.5l1.5 1.5 2.5-2.5"></path><path d="M11 6.5h8.5"></path><path d="M4.5 12l1.5 1.5 2.5-2.5"></path><path d="M11 12h8.5"></path><path d="M4.5 17.5l1.5 1.5 2.5-2.5"></path><path d="M11 17.5h8.5"></path></svg>
+        <span>Tasks</span>
+      </button>
+      <button class="dock__btn" data-panel="stats" aria-label="Stats">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10"></path><path d="M12 20V4"></path><path d="M20 20v-7"></path></svg>
+        <span>Stats</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ------------------------------------------- SIDE DRAWER ------------------------------------------- -->
+  <!-- Overlay dims the page, drawer slides in with content for whichever dock panel was clicked -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="drawer__head">
+      <div class="drawer__head-text">
+        <h2 id="drawerTitle">Sounds</h2>
+        <p class="drawer__subtitle" id="drawerSubtitle"></p>
+      </div>
+      <button class="icon-btn" id="drawerClose" aria-label="Close panel">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <div class="drawer__body" id="drawerBody"></div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
