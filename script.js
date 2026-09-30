@@ -18,7 +18,7 @@ var MANIFEST = {
         { id: "forest", name: "Forest", file: "images/forest.jpg" },
         { id: "rain", name: "Rainy window", file: "images/rain.jpg" },
         { id: "night-city", name: "Night city", file: "images/night-city.jpg" },
-        { id: "dusk-desert", name: "Dusk desert", file: "images/dusk-desert.jpg" },
+        { id: "SLC", name: "SLC ", file: "images/SLC.jpg" },
         { id: "cafe", name: "Cafe", file: "images/cafe.jpg" },
         { id: "ocean", name: "Ocean", file: "images/ocean.jpg" }
     ],
