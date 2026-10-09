@@ -20,6 +20,8 @@ and additional panels for personalising the experience.
 HTML | JavaScript | CSS 
 
 ## 4. Project Structure
+<CodeBlock language="markdown" editable> 
+```text
 Pomodoki/
 ├── audio
 ├── images
@@ -27,6 +29,8 @@ Pomodoki/
 ├── style.css
 ├── script.js
 └── README.md
+``` 
+</CodeBlock>
 
 ## 5. How to use: 
 1. Open Pomodoki in your web browser.
