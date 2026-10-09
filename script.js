@@ -121,7 +121,9 @@ var el = {
     drawerSubtitle: document.getElementById("drawerSubtitle"),
     drawerBody: document.getElementById("drawerBody"),
     drawerClose: document.getElementById("drawerClose"),
-    settingsBtn: document.getElementById("settingsBtn")
+    settingsBtn: document.getElementById("settingsBtn"),
+    settingsBtn: document.getElementById("settingsBtn"),
+    fullscreenBtn: document.getElementById("fullscreenBtn")
 };
 
 var activeLayer = "a"; // which scene layer currently holds the visible image
@@ -654,9 +656,7 @@ function renderSettingsPanel() {
                 '<span>' + Math.round(Number(state.settings.alertVolume != null ? state.settings.alertVolume : 0.7) * 100) + '%</span>' +
             '</div>' +
         '</div>' +
-        '<p class="settings-hint">' +
-            'Drop your own photos into <code>/images</code> and sounds into <code>/audio</code>, ' +
-            'then match the filenames in the <code>MANIFEST</code> at the top of <code>script.js</code>.' +
+        '<p class="settings-hint">' +        
         '</p>';
     el.drawerBody.appendChild(wrap);
 
@@ -729,6 +729,41 @@ function renderSettingsPanel() {
         }, 3500);
     });
 }
+// ------------------------------------------- FULLSCREEN -------------------------------------------
+// A func to check whether the page is currently fullscreen
+// (the webkit versions cover older Safari)
+function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+// A func to enter fullscreen if we're not in it, or leave it if we are
+function toggleFullscreen() {
+    if (isFullscreen()) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    } else {
+        var root = document.documentElement;
+        var request = root.requestFullscreen || root.webkitRequestFullscreen;
+        if (request) {
+            var result = request.call(root);
+            // some browsers return a promise that can reject; ignore it quietly
+            if (result && result.catch) {
+                result.catch(function () {});
+            }
+        }
+    }
+}
+
+// A func to update the button's icon and label to match the real fullscreen state
+function syncFullscreenButton() {
+    var on = isFullscreen();
+    el.fullscreenBtn.classList.toggle("is-fullscreen", on);
+    el.fullscreenBtn.setAttribute("aria-label", on ? "Exit fullscreen" : "Enter fullscreen");
+}
+
 
 // ------------------------------------------- WIRING -------------------------------------------
 for (var wi = 0; wi < el.modes.length; wi++) {
@@ -753,6 +788,15 @@ for (var di = 0; di < el.dockBtns.length; di++) {
             openDrawer(btn.dataset.panel);
         });
     })(el.dockBtns[di]);
+}
+
+el.fullscreenBtn.addEventListener("click", toggleFullscreen);
+document.addEventListener("fullscreenchange", syncFullscreenButton);
+document.addEventListener("webkitfullscreenchange", syncFullscreenButton);
+
+// hide the button on browsers with no fullscreen support (e.g. iPhone Safari)
+if (!document.documentElement.requestFullscreen && !document.documentElement.webkitRequestFullscreen) {
+    el.fullscreenBtn.style.display = "none";
 }
 
 el.settingsBtn.addEventListener("click", function () {

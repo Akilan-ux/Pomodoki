@@ -406,6 +406,23 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .settings-hint code{ color:var(--mist); }
 
+/* ------------------------------------------- FULLSCREEN BUTTON ------------------------------------------- */
+.fullscreen-btn{
+  position:fixed; bottom:26px; left:32px; z-index:5;
+  width:52px; height:52px;            /* button size (was 38px) */
+}
+.fullscreen-btn svg{
+  width:24px; height:24px;            /* icon size (was 18px) */
+}
+.fullscreen-btn .icon-exit{ display:none; }
+.fullscreen-btn.is-fullscreen .icon-enter{ display:none; }
+.fullscreen-btn.is-fullscreen .icon-exit{ display:block; }
+
+@media (max-width: 560px){
+  .fullscreen-btn{ left:16px; bottom:32px; }
+}
+
+
 @media (max-width: 420px){
   .card{ padding:28px 22px 24px; }
   .time{ font-size:46px; }
